@@ -1,0 +1,52 @@
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
+public class EbayTest {
+
+    @Test
+    public void addItemToCart() throws InterruptedException {
+        // Set the path to the ChromeDriver executable
+        System.setProperty("webdriver.chrome.driver", "path/to/chromedriver");
+
+        // Create a new ChromeDriver instance
+        WebDriver driver = new ChromeDriver();
+
+        // Navigate to eBay.com
+        driver.get("https://www.ebay.com/");
+
+        // Search for "book"
+        WebElement searchBox = driver.findElement(By.xpath(//*[@id="gh-ac"]));
+        searchBox.sendKeys("book");
+        searchBox.submit();
+
+        // Get handles of all open windows
+        Set<String> handles=driver.getWindowHandles();
+          for(String actual: handles) {
+         if(!actual.equalsIgnoreCase(currentHandle)) {
+       //Switch to the opened tab
+        driver.switchTo().window(actual);
+
+        // Click on the first book in the list
+        WebElement firstBook = driver.findElement(By.xpath("//*[@id="item26efe59df4"]/div/div[2]/a/div"));
+        firstBook.click();
+
+       
+
+        // Click on the "Add to cart" button
+        WebElement addToCartButton = driver.findElement(By.xpath("//a[@id="atcBtn_btn_1"]");
+        addToCartButton.click();
+
+        // Verify the cart has been updated and displays the number of items
+        WebElement cartCount = driver.findElement(By.id("gh-eb-u1"));
+        String cartCountText = cartCount.getText();
+        Assert.assertTrue(Integer.parseInt(cartCountText) > 0, "Cart count is not updated.");
+
+        // Close the browser
+        driver.quit();
+    }
+}
